@@ -1,7 +1,21 @@
-<h1>Hello, Rails!</h1>
+<h1 class="mt-5">Your Images</h1>
 
-<table>
+<table class="table table-bordered">
+  <thead class="thead-light">
+    <th scope="col">#</th>
+    <th scope="col">Name</th>
+  </thead>
+  <tbody>
 <% @img_rows.each do |img| %>
   <%= render partial: "image_row", locals: { img: img } %>
 <% end %>
+  </tbody>
+  <tr>
+    <th scope="row"></th>
+    <td>test1</td>
+  </tr>
+  <tr>
+    <th scope="row"></th>
+    <td>test2</td>
+  </tr>
 </table>

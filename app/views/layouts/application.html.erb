@@ -11,6 +11,27 @@
   </head>
 
   <body>
+  <header>
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+      <a class="navbar-brand" href="#">Matthew's Image Repo</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item <%= active_url(root_path) %>">
+            <%= link_to "Home", root_path, class: "nav-link" %>
+          </li>
+          <li class="nav-item <%= active_url(new_image_row_path) %>">
+            <%= link_to "Upload", new_image_row_path, class: "nav-link" %>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+  <main class="container main-container" role="main">
     <%= yield %>
+  </main>
   </body>
 </html>
