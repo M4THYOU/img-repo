@@ -8,3 +8,4 @@ Follow these steps to get setup with this project.
 1. Run `bundle install` from the root directory of the project.
 1. Run `rails db:create`
 1. Run `rails db:schema:load`
+1. Run `rails db:migrate`

@@ -11,12 +11,9 @@ module ShopifyTest
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.1
 
-    # Configuration for the application, engines, and railties goes here.
-    #
-    # These settings can be overridden in specific environments using the files
-    # in config/environments, which are processed later.
-    #
-    # config.time_zone = "Central Time (US & Canada)"
-    # config.eager_load_paths << Rails.root.join("extras")
+    # Just use local for all environments for the sake of this demo.
+    # In reality, we would add another storage config with something like AWS S3 in prod.
+    config.active_storage.service = :local
+
   end
 end
