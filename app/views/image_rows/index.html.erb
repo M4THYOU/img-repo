@@ -1,0 +1,7 @@
+<h1>Hello, Rails!</h1>
+
+<table>
+<% @img_rows.each do |img| %>
+  <%= render partial: "image_row", locals: { img: img } %>
+<% end %>
+</table>

@@ -1,0 +1,17 @@
+<div class="container">
+  <%= form_for :img_row, { :url => { :action => "create" }, :html => { :multipart => true } } do |f| %>
+
+    <div class="form-group">
+      <% if @img_row.image.attached? %>
+        <%= image_tag @img_row.image, style: "width: 200px; display: block" %>
+      <% end %>
+
+      <%= f.label :image %>
+      <%= f.file_field :image, class: "form-control" %>
+    </div>
+
+    <input type="submit" class="btn btn-info" value="submit">
+
+  <% end %>
+
+</div>
