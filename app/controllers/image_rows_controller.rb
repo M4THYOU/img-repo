@@ -9,7 +9,7 @@ class ImageRowsController < ApplicationController
     # very simple code to grab the proper Post so it can be
     # displayed in the Show view (show.html.erb)
     def show
-        @img_row = ImageRow.find(params[:id])
+        @img = ImageRow.find(params[:id])
     end
 
     # very simple code to create an empty post and send the user
@@ -23,10 +23,11 @@ class ImageRowsController < ApplicationController
     # were submitted with the form (and are now available in the
     # params hash)
     def create
-        new_img = img_params
-        new_img[:name] = 'some_temp_name'
+        new_img = img_params[:img_row]
+        new_img[:name] = new_img[:image].original_filename
         @img_row = ImageRow.new(new_img)
         if @img_row.save
+            # @img_row.image.attach(new_img[:image])
             redirect_to image_row_path(@img_row)
         else
             flash[:errors] = @img_row.errors.full_messages
@@ -58,7 +59,7 @@ class ImageRowsController < ApplicationController
     private
 
     def img_params
-        params.permit(:image)
+        params.permit(img_row: [:image])
     end
 
 end

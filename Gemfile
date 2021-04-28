@@ -53,5 +53,8 @@ group :test do
   gem 'webdrivers'
 end
 
+# got errors loading image that said this gem was required.
+gem 'image_processing', '~> 1.2'
+
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]

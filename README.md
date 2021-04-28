@@ -9,3 +9,4 @@ Follow these steps to get setup with this project.
 1. Run `rails db:create`
 1. Run `rails db:schema:load`
 1. Run `rails db:migrate`
+1. Install ImageMagick. Assuming you are using a Mac, you can use: `brew install imagemagick`

@@ -1,0 +1,8 @@
+<h1 class="mt-5"><%= @img.name %></h1>
+<br/>
+<% if @img.image.attached? %>
+  <p><%= image_tag @img.image.variant(resize: "500x500") %></p>
+<% else %>
+  <p>No image attached :(</p>
+  <p>Matthew broke something...</p>
+<% end %>
