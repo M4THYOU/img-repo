@@ -27,7 +27,6 @@ class ImageRowsController < ApplicationController
         new_img[:name] = new_img[:image].original_filename
         @img_row = ImageRow.new(new_img)
         if @img_row.save
-            # @img_row.image.attach(new_img[:image])
             redirect_to image_row_path(@img_row)
         else
             flash[:errors] = @img_row.errors.full_messages
