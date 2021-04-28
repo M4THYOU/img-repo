@@ -1,4 +1,4 @@
 <tr>
-  <th scope="row"></th>
+  <th scope="row"><%= check_box("image_row", "selected", {:multiple => true}, img.id, {checked: false}) %></th>
   <td><%= img.name %></td>
 </tr>
