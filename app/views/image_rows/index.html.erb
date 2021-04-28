@@ -1,8 +1,18 @@
 <h1 class="mt-5">Your Images</h1>
 
+<%#= form_with url: "/search", method: :get do |form| %>
+  <%#= form.label :query, "Search for:" %>
+  <%#= form.text_field :query %>
+  <%#= form.submit "Search" %>
+<%# end %>
+
+<%= form_with url: "/bulk_action", method: :post do |f| %>
+  <%= f.select(:object_field, %w[Action... Delete], {}, { :class => 'my_style_class' }) %>
+  <%= f.submit "Submit" %>
+
 <table class="table table-bordered">
   <thead class="thead-light">
-    <th scope="col"><%= check_box("image_row", "selected", {id: "selectAll"}, 0, {checked: false}) %></th>
+    <th scope="col"><%= check_box(nil, nil, {id: "selectAll"}, 0, {checked: false}) %></th>
     <th scope="col">Name</th>
   </thead>
   <tbody>
@@ -11,3 +21,5 @@
 <% end %>
   </tbody>
 </table>
+
+<% end %>

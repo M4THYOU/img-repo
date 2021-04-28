@@ -55,6 +55,12 @@ class ImageRowsController < ApplicationController
         # pass
     end
 
+    def bulk_action
+        puts 'xxxxxxx'
+        puts params
+        # pass
+    end
+
     private
 
     def img_params
