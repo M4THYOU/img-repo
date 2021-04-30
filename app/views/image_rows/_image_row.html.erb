@@ -1,4 +1,4 @@
 <tr>
-  <th scope="row"><%= check_box("image_row", "selected_images", {:multiple => true, :checked => false}, nil, img.id) %></th>
+  <th scope="row"><%= check_box_tag "images[]", img.id %></th>
   <td><%= link_to img.name, image_row_path(img) %></td>
 </tr>

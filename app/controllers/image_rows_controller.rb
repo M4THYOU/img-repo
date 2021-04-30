@@ -3,13 +3,16 @@ class ImageRowsController < ApplicationController
     # very simple code to grab all posts so they can be
     # displayed in the Index view (index.html.erb)
     def index
-        @img_rows = ImageRow.all.with_attached_image
+        @img_rows = ImageRow.where(is_deleted: false).with_attached_image
     end
 
     # very simple code to grab the proper Post so it can be
     # displayed in the Show view (show.html.erb)
     def show
         @img = ImageRow.find(params[:id])
+        if @img.is_deleted
+            @img = nil
+        end
     end
 
     # very simple code to create an empty post and send the user
@@ -38,7 +41,7 @@ class ImageRowsController < ApplicationController
     # user to the Edit view for it(edit.html.erb), which has a
     # form for editing the post
     def edit
-        # pass
+        raise NotImplementedError
     end
 
     # code to figure out which post we're trying to update, then
@@ -46,25 +49,39 @@ class ImageRowsController < ApplicationController
     # done, redirect us to somewhere like the Show page for that
     # post
     def update
-        # pass
+        raise NotImplementedError
     end
 
     # very simple code to find the post we're referring to and
     # destroy it.  Once that's done, redirect us to somewhere fun.
     def destroy
-        # pass
+        raise NotImplementedError
     end
 
     def bulk_action
-        puts 'xxxxxxx'
-        puts params
-        # pass
+        action = bulk_params[:bulk_action].to_i
+        images = bulk_params[:images].map(&:to_i)
+        if action == ImageRow.bulk_actions[:delete]
+            update_vals = {is_deleted: true}
+            img_rows = ImageRow.where(id: images)
+            puts img_rows
+            img_rows.update_all(update_vals)
+            redirect_to root_path, :flash => { :success => "Images deleted." }
+        else
+            redirect_to root_path, :flash => { :error => "Action not implemented." }
+        end
     end
 
     private
 
     def img_params
         params.permit(img_row: [:image])
+    end
+
+    def bulk_params
+        params.require(:bulk_action)
+        params.require(:images)
+        params.permit(:bulk_action, :images => [])
     end
 
 end

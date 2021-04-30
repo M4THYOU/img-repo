@@ -35,6 +35,11 @@
     </nav>
   </header>
   <main class="container main-container" role="main">
+    <% flash.each do |type, msg| %>
+      <div>
+        <%= msg %>
+      </div>
+    <% end %>
     <%= yield %>
   </main>
   </body>

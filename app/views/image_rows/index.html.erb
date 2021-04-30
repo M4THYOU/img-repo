@@ -6,20 +6,20 @@
   <%#= form.submit "Search" %>
 <%# end %>
 
-<%= form_with url: "/bulk_action", method: :post do |f| %>
-  <%= f.select(:object_field, %w[Action... Delete], {}, { :class => 'my_style_class' }) %>
-  <%= f.submit "Submit" %>
+<%= form_tag "/bulk_action", method: :post do %>
+  <%= select_tag("bulk_action", options_for_select(get_bulk_actions), { :class => 'my_style_class' }) %>
+  <%= submit_tag "Submit" %>
 
-<table class="table table-bordered">
-  <thead class="thead-light">
+  <table class="table table-bordered">
+    <thead class="thead-light">
     <th scope="col"><%= check_box(nil, nil, {id: "selectAll"}, 0, {checked: false}) %></th>
     <th scope="col">Name</th>
-  </thead>
-  <tbody>
-<% @img_rows.each do |img| %>
-  <%= render partial: "image_row", locals: { img: img } %>
-<% end %>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+    <% @img_rows.each do |img| %>
+      <%= render partial: "image_row", locals: { img: img } %>
+    <% end %>
+    </tbody>
+  </table>
 
 <% end %>
