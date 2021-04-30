@@ -51,6 +51,7 @@ group :test do
   gem 'selenium-webdriver'
   # Easy installation and use of web drivers to run system tests with browsers
   gem 'webdrivers'
+  gem 'rexml'
 end
 
 # got errors loading image that said this gem was required.
