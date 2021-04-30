@@ -1,1 +1,2 @@
-
+class ImageSearchIndex < ApplicationRecord
+end

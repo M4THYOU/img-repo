@@ -4,15 +4,18 @@ module Search
         include Service
 
         # Indexes the given image_row.
-        # @param img [ActiveStorage::Attached] the image attached to an image_row
-        def index_one(img)
-            filename = img.filename.to_s
-            content_type = img.content_type
-            height = img.metadata[:height]
-            width = img.metadata[:width]
-            byte_size = img.byte_size
-            created_at = img.created_at
-            raise NotImplementedError
+        # @param img_row [ImageRow]
+        def index_one(img_row)
+            val = {
+                record_id: img_row.id,
+                filename: img_row.image.filename.to_s,
+                content_type: img_row.image.content_type,
+                height: img_row.image.metadata[:height],
+                width: img_row.image.metadata[:width],
+                byte_size: img_row.image.byte_size,
+                created_at: img_row.image.created_at
+            }
+            ImageSearchIndex.create!(val)
         end
 
         # Removes index for the given image_row, usually on deletion.
