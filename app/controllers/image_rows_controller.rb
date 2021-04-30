@@ -61,6 +61,9 @@ class ImageRowsController < ApplicationController
     def bulk_action
         action = bulk_params[:bulk_action].to_i
         images = bulk_params[:images].map(&:to_i)
+        # We are using an is_deleted flag on the image row for deletion to accommodate for recovery of "deleted" data.
+        # In a production environment, we would likely run a scheduled job to actually delete images which have had
+        #   is_deleted = true for >= a specified period of time, to keep the DB clean.
         if action == ImageRow.bulk_actions[:delete]
             update_vals = {is_deleted: true}
             img_rows = ImageRow.where(id: images)
