@@ -7,9 +7,13 @@ module Search
             @query = query
         end
 
+        def search
+            _search
+        end
+
         private
 
-        def search
+        def _search
             raise NotImplementedError
         end
 
