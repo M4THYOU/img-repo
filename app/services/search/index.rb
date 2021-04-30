@@ -4,7 +4,14 @@ module Search
         include Service
 
         # Indexes the given image_row.
-        def index_one
+        # @param img [ActiveStorage::Attached] the image attached to an image_row
+        def index_one(img)
+            filename = img.filename.to_s
+            content_type = img.content_type
+            height = img.metadata[:height]
+            width = img.metadata[:width]
+            byte_size = img.byte_size
+            created_at = img.created_at
             raise NotImplementedError
         end
 

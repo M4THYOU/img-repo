@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_27_140005) do
+ActiveRecord::Schema.define(version: 2021_04_30_175741) do
 
   create_table "active_storage_attachments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
@@ -45,6 +45,23 @@ ActiveRecord::Schema.define(version: 2021_04_27_140005) do
     t.boolean "is_deleted", default: false, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "table_search_indices", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "record_id", null: false
+    t.string "filename", null: false
+    t.string "content_type"
+    t.bigint "height"
+    t.bigint "width"
+    t.bigint "byte_size", null: false
+    t.datetime "created_at", null: false
+    t.index ["byte_size"], name: "index_table_search_indices_on_byte_size"
+    t.index ["content_type"], name: "index_table_search_indices_on_content_type"
+    t.index ["created_at"], name: "index_table_search_indices_on_created_at"
+    t.index ["filename"], name: "index_table_search_indices_on_filename"
+    t.index ["height"], name: "index_table_search_indices_on_height"
+    t.index ["record_id"], name: "index_table_search_indices_on_record_id"
+    t.index ["width"], name: "index_table_search_indices_on_width"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
