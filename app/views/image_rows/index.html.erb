@@ -1,10 +1,10 @@
 <h1 class="mt-5">Your Images</h1>
 
-<%#= form_with url: "/search", method: :get do |form| %>
-  <%#= form.label :query, "Search for:" %>
-  <%#= form.text_field :query %>
-  <%#= form.submit "Search" %>
-<%# end %>
+<%= form_with url: "/search", method: :get do |form| %>
+  <%= form.label :query, "Search for:" %>
+  <%= form.text_field :query %>
+  <%= form.submit "Search" %>
+<% end %>
 
 <%= form_tag "/bulk_action", method: :post do %>
   <%= select_tag("bulk_action", options_for_select(get_bulk_actions), { :class => 'my_style_class' }) %>
