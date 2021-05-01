@@ -20,8 +20,8 @@ module Search
             end
 
             # Removes index for the given image_row, usually on deletion.
-            def un_index_one
-                raise NotImplementedError
+            def un_index_one(img_row)
+                ImageSearchIndex.find_by(record_id: img_row.id).destroy
             end
 
             # Calls remove_hanging_indices then index_all to keep the search index up to date.

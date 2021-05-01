@@ -1,10 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe Search::Index do
+    let(:img_row) { FactoryBot.create(:image_row) }
 
     describe 'index_one' do
-        let(:img_row) { FactoryBot.create(:image_row) }
-
         it 'should create an index record' do
             before_count = ImageSearchIndex.count
             expect(before_count).to eq(0)
@@ -19,7 +18,6 @@ RSpec.describe Search::Index do
             expect(indexed_row.width).to eq(544)
             expect(indexed_row.byte_size).to eq(38411)
         end
-
     end
 
 end
