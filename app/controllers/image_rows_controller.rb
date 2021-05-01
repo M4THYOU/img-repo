@@ -59,20 +59,10 @@ class ImageRowsController < ApplicationController
     end
 
     def bulk_action
-        action = bulk_params[:bulk_action].to_i
+        action = bulk_params[:bulk_action]
         images = bulk_params[:images].map(&:to_i)
-        # We are using an is_deleted flag on the image row for deletion to accommodate for recovery of "deleted" data.
-        # In a production environment, we would likely run a scheduled job to actually delete images which have had
-        #   is_deleted = true for >= a specified period of time, to keep the DB clean.
-        if action == ImageRow.bulk_actions[:delete]
-            update_vals = {is_deleted: true}
-            img_rows = ImageRow.where(id: images)
-            puts img_rows
-            img_rows.update_all(update_vals)
-            redirect_to root_path, :flash => { :success => "Images deleted." }
-        else
-            redirect_to root_path, :flash => { :error => "Action not implemented." }
-        end
+        message = ImageRow.perform_bulk_action(action, images)
+        redirect_to root_path, :flash => { :info => message }
     end
 
     private
