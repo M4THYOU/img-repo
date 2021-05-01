@@ -16,8 +16,6 @@ module Search
                     byte_size: img_row.image.byte_size,
                     created_at: img_row.image.created_at
                 }
-                puts 'aaaaaaa'
-                puts img_row.image.metadata
                 ImageSearchIndex.create!(val)
             end
 
