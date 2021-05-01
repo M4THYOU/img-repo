@@ -4,7 +4,7 @@ module Search
         include Service
 
         class << self
-            # Indexes the given image_row.
+            # Indexes the given image_row or updates the existing one.
             # @param img_row [ImageRow]
             def index_one(img_row)
                 val = {
@@ -16,10 +16,16 @@ module Search
                     byte_size: img_row.image.byte_size,
                     created_at: img_row.image.created_at
                 }
-                ImageSearchIndex.create!(val)
+                existing_index = ImageSearchIndex.find_by(record_id: img_row.id)
+                if existing_index.nil?
+                    ImageSearchIndex.create!(val)
+                else
+                    ImageSearchIndex.update(val)
+                end
             end
 
             # Removes index for the given image_row, usually on deletion.
+            # # @param img_row [ImageRow]
             def un_index_one(img_row)
                 ImageSearchIndex.find_by(record_id: img_row.id).destroy
             end

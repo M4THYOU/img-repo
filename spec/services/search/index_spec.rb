@@ -18,6 +18,29 @@ RSpec.describe Search::Index do
             expect(indexed_row.width).to eq(544)
             expect(indexed_row.byte_size).to eq(38411)
         end
+        it 'should update an index record' do
+            before_count = ImageSearchIndex.count
+            expect(before_count).to eq(0)
+            described_class.index_one(img_row)
+            expect(ImageSearchIndex.count).to eq(1)
+
+            # TODO: test me by updating with different image!
+        end
+    end
+
+    describe 'un_index_one' do
+        # it 'should remove the index for a record' do
+        #     indexed_row = ImageSearchIndex.find_by(record_id: img_row.id)
+        #     expect(indexed_row).to be_nil
+        #
+        #     described_class.index_one(img_row)
+        #     indexed_row = ImageSearchIndex.find_by(record_id: img_row.id)
+        #     expect(indexed_row).to_not be_nil
+        #
+        #     described_class.un_index_one(img_row)
+        #     indexed_row = ImageSearchIndex.find_by(record_id: img_row.id)
+        #     expect(indexed_row).to be_nil
+        # end
     end
 
 end
