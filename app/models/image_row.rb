@@ -16,6 +16,7 @@ class ImageRow < ApplicationRecord
                 update_vals = {is_deleted: true}
                 img_rows = where(id: images)
                 img_rows.update_all(update_vals)
+                Search::Index.un_index_many(images)
                 'Images deleted.'
             else
                 'Action not implemented.'

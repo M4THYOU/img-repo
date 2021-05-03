@@ -25,9 +25,15 @@ module Search
             end
 
             # Removes index for the given image_row, usually on deletion.
-            # # @param img_row [ImageRow]
+            # @param img_row [ImageRow]
             def un_index_one(img_row)
                 ImageSearchIndex.find_by(record_id: img_row.id).destroy
+            end
+
+            # Deletes the indexes for the specified array of image row ids.
+            # @param img_row_ids [Array<Integer>]
+            def un_index_many(img_row_ids)
+                ImageSearchIndex.where(record_id: img_row_ids).destroy_all
             end
 
             # Calls remove_hanging_indices then index_all to keep the search index up to date.
