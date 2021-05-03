@@ -1,7 +1,6 @@
 module Search
     # Search::Index handles all indexing for new uploads and deletions.
     module Index
-        include Service
 
         class << self
             # Indexes the given image_row or updates the existing one.
