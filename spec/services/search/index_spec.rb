@@ -34,20 +34,21 @@ RSpec.describe Search::Index do
         end
     end
 
-    # describe 'un_index_one' do
-    #     it 'should remove the index for a record' do
-    #         # index it
-    #         expect(ImageSearchIndex.count).to eq(0)
-    #         described_class.index_one(img_row)
-    #         expect(ImageSearchIndex.count).to eq(1)
-    #         indexed_row = ImageSearchIndex.find_by(record_id: img_row.id)
-    #         expect(indexed_row).to_not be_nil
-    #         # un index it
-    #         described_class.un_index_one(img_row)
-    #         expect(ImageSearchIndex.count).to eq(0)
-    #         indexed_row = ImageSearchIndex.find_by(record_id: img_row.id)
-    #         expect(indexed_row).to be_nil
-    #     end
-    # end
+    describe 'un_index_one' do
+        it 'should remove the index for a record' do
+            img_row = FactoryBot.create(:image_row)
+            # index it
+            expect(ImageSearchIndex.count).to eq(0)
+            described_class.index_one(img_row)
+            expect(ImageSearchIndex.count).to eq(1)
+            indexed_row = ImageSearchIndex.find_by(record_id: img_row.id)
+            expect(indexed_row).to_not be_nil
+            # un index it
+            described_class.un_index_one(img_row)
+            expect(ImageSearchIndex.count).to eq(0)
+            indexed_row = ImageSearchIndex.find_by(record_id: img_row.id)
+            expect(indexed_row).to be_nil
+        end
+    end
 
 end
