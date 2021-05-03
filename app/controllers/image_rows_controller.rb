@@ -13,6 +13,10 @@ class ImageRowsController < ApplicationController
         if @img.is_deleted
             @img = nil
         end
+        # Index img rows in show because only here will the metadata like height/width actually be written.
+        # And, this helps us capture any updates very quickly.
+        # Would need some caching logic to prevent hammering the db with these in prod though.
+        Search::Index.index_one(@img)
     end
 
     # very simple code to create an empty post and send the user
@@ -30,7 +34,6 @@ class ImageRowsController < ApplicationController
         new_img[:name] = new_img[:image].original_filename
         @img_row = ImageRow.new(new_img)
         if @img_row.save
-            Search::Index.index_one(@img_row)
             redirect_to image_row_path(@img_row)
         else
             flash[:errors] = @img_row.errors.full_messages
