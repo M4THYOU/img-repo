@@ -42,12 +42,19 @@ module Search
 
             # Checks all the image_rows and creates an index entry for each unindexed one.
             def index_all
-                raise NotImplementedError
+                ImageRow.find_each.each do |row|
+                    index_one(row)
+                end
             end
 
             # Checks all image_rows against the current search index. Remove indices for deleted image rows.
             def remove_hanging_indices
-                raise NotImplementedError
+                ImageSearchIndex.select(:id, :record_id).find_each.each do |idx|
+                    row = ImageRow.find_by(id: idx.record_id)
+                    if row.nil?
+                        idx.destroy
+                    end
+                end
             end
         end
 

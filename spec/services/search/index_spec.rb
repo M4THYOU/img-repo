@@ -51,4 +51,34 @@ RSpec.describe Search::Index do
         end
     end
 
+    describe 'clean_index' do
+        it 'should remove all hanging indices' do
+            expect(ImageSearchIndex.count).to eq(0)
+            expect(ImageRow.count).to eq(0)
+            img_row1 = FactoryBot.create(:image_row)
+            img_row2 = FactoryBot.create(:image_row)
+            described_class.index_one(img_row1)
+            described_class.index_one(img_row2)
+            expect(ImageSearchIndex.count).to eq(2)
+            expect(ImageRow.count).to eq(2)
+            img_row1.destroy
+            expect(ImageSearchIndex.count).to eq(2)
+            expect(ImageRow.count).to eq(1)
+            described_class.clean_index
+            expect(ImageSearchIndex.count).to eq(1)
+            expect(ImageRow.count).to eq(1)
+        end
+        it 'should index all un indexed rows' do
+            expect(ImageSearchIndex.count).to eq(0)
+            expect(ImageRow.count).to eq(0)
+            FactoryBot.create(:image_row)
+            FactoryBot.create(:image_row)
+            expect(ImageSearchIndex.count).to eq(0)
+            expect(ImageRow.count).to eq(2)
+            described_class.clean_index
+            expect(ImageSearchIndex.count).to eq(2)
+            expect(ImageRow.count).to eq(2)
+        end
+    end
+
 end
