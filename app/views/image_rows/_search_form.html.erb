@@ -1,0 +1,30 @@
+<br/>
+<%= form_with url: "/search", method: :post do |form| %>
+  <div>
+    <%= form.label :query, "Search for:" %>
+    <%= form.text_field :query %>
+  </div>
+  <div>
+    <%= form.label :height, "Height:" %>
+    <%= form.select :height_op, %w[< > =] %>
+    <%= form.number_field :height %>
+  </div>
+  <div>
+    <%= form.label :width, "Width:" %>
+    <%= form.select :width_op, %w[< > =] %>
+    <%= form.number_field :width %>
+  </div>
+  <div>
+    <%= form.label :size, "Max Bytes:" %>
+    <%= form.number_field :size %>
+  </div>
+  <div>
+    <%= form.label :start_date, "From:" %>
+    <%= form.date_field :start_date %>
+    <%= form.label :end_date, "To:" %>
+    <%= form.date_field :end_date %>
+  </div>
+
+  <%= form.submit "Search" %>
+<% end %>
+<br/>

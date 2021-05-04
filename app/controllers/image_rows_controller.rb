@@ -69,6 +69,11 @@ class ImageRowsController < ApplicationController
         redirect_to root_path, :flash => { :info => message }
     end
 
+    def search
+        puts params
+        @img_rows = ImageRow.where(is_deleted: false).with_attached_image
+    end
+
     private
 
     def img_params
