@@ -61,10 +61,30 @@ RSpec.describe Search::Query, type: :model do
             expect(q.search.count).to be(1)
         end
         it 'should match on byte size' do
-            #
+            q = described_class.new(size: 5)
+            expect(q.search.count).to be(0)
+            q.size = 101
+            expect(q.search.count).to be(4)
+            q.size = 44444
+            expect(q.search.count).to be(5)
+            q.size = 14325435
+            expect(q.search.count).to be(6)
         end
         it 'should match on creation date' do
-            #
+            q = described_class.new(start_date: DateTime.new(2002))
+            expect(q.search.count).to be(2)
+            q.to = DateTime.new(2021, 3)
+            expect(q.search.count).to be(1)
+            q.from = DateTime.new(2001, 4, 25, 9)
+            expect(q.search.count).to be(5)
+            q.from = DateTime.new(2001, 4, 25, 9, 30)
+            expect(q.search.count).to be(4)
+            q.from = DateTime.new(2001, 4, 25, 9, 30, 23)
+            expect(q.search.count).to be(3)
+            q.from = DateTime.new(2001, 4, 25, 9, 30, 24)
+            expect(q.search.count).to be(2)
+            q.to = DateTime.new(2001, 4, 25, 9, 30, 24)
+            expect(q.search.count).to be(0)
         end
     end
 
