@@ -19,7 +19,8 @@ module Search
                 if existing_index.nil?
                     ImageSearchIndex.create!(val)
                 else
-                    ImageSearchIndex.update(val)
+                    val.delete(:record_id)
+                    existing_index.update(val)
                 end
             end
 
