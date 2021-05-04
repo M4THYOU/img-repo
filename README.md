@@ -1,7 +1,5 @@
 # Matthew's Shopify Image Repo!
 
-For the `Fall 2021 - Shopify Developer Intern Challenge Question`
-
 Follow these steps to get setup with this project.
 1. Download MySQL
 1. Install ruby 3.0.0
