@@ -12,11 +12,13 @@ class ImageRowsController < ApplicationController
         @img = ImageRow.find(params[:id])
         if @img.is_deleted
             @img = nil
+        else
+            # Index img rows in show because only here will the metadata like height/width actually be written.
+            # And, this helps us capture any updates very quickly.
+            # Would need some caching logic to prevent hammering the db with these in prod though.
+            @img.image.analyze # need to manually trigger analysis before indexing to get dimensions.
+            Search::Index.index_one(@img)
         end
-        # Index img rows in show because only here will the metadata like height/width actually be written.
-        # And, this helps us capture any updates very quickly.
-        # Would need some caching logic to prevent hammering the db with these in prod though.
-        Search::Index.index_one(@img)
     end
 
     # very simple code to create an empty post and send the user
