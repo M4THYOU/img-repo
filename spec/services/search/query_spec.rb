@@ -37,11 +37,28 @@ RSpec.describe Search::Query, type: :model do
             expect(q.search.count).to be(0)
         end
         it 'should match on height and width' do
-            q = described_class.new(height_op: '<', height: 2)
+            q = described_class.new(height_op: '<', height: 99)
             expect(q.search.count).to be(0)
             q.height = 100
             expect(q.search.count).to be(4)
-            # TODO: MORE TESTS
+            q.height = 100
+            expect(q.search.count).to be(4)
+            q.height = 100
+            q.width = 101
+            expect(q.search.count).to be(4)
+            q.height = 570
+            q.width = 10000
+            expect(q.search.count).to be(6)
+            q.height_op = '>'
+            expect(q.search.count).to be(0)
+            q.height_op = '<'
+            q.width_op = '>'
+            expect(q.search.count).to be(0)
+            q.height = 560
+            q.width = 1001
+            q.height_op = '='
+            q.width_op = '='
+            expect(q.search.count).to be(1)
         end
         it 'should match on byte size' do
             #
