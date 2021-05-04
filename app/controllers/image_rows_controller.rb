@@ -3,7 +3,7 @@ class ImageRowsController < ApplicationController
     # very simple code to grab all posts so they can be
     # displayed in the Index view (index.html.erb)
     def index
-        @img_rows = ImageRow.where(is_deleted: false).with_attached_image
+        @img_rows = img_row_search
     end
 
     # very simple code to grab the proper Post so it can be
@@ -69,11 +69,6 @@ class ImageRowsController < ApplicationController
         redirect_to root_path, :flash => { :info => message }
     end
 
-    def search
-        puts params
-        @img_rows = ImageRow.where(is_deleted: false).with_attached_image
-    end
-
     private
 
     def img_params
@@ -84,6 +79,31 @@ class ImageRowsController < ApplicationController
         params.require(:bulk_action)
         params.require(:images)
         params.permit(:bulk_action, :images => [])
+    end
+
+    def search_params
+        params.permit(:query, :height_op, :height, :width_op, :width, :size, :start_date, :end_date)
+    end
+
+    def query_builder
+        search_query = search_params.to_h
+        search_query.each do |k, v|
+            if v.blank?
+                search_query.delete(k)
+            elsif %w[height width size].include?(k)
+                search_query[k] = search_query[k].to_i
+            elsif %w[start_date end_date].include?(k)
+                search_query[k] = search_query[k].to_datetime
+            end
+        end
+        search_query.symbolize_keys
+    end
+
+    def img_row_search
+        query = Search::Query.new(**query_builder)
+        res = query.search
+        ids = res.map { |idx| idx.record_id }
+        @img_rows = ImageRow.where(is_deleted: false, id: ids).with_attached_image
     end
 
 end

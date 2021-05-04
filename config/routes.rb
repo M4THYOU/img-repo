@@ -3,5 +3,4 @@ Rails.application.routes.draw do
     resources :image_rows
 
     post 'bulk_action', to: 'image_rows#bulk_action'
-    post 'search', to: 'image_rows#search'
 end

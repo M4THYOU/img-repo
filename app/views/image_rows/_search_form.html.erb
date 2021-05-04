@@ -1,5 +1,5 @@
 <br/>
-<%= form_with url: "/search", method: :post do |form| %>
+<%= form_with url: root_path, method: :get do |form| %>
   <div>
     <%= form.label :query, "Search for:" %>
     <%= form.text_field :query %>
